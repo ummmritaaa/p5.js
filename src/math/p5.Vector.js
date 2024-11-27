@@ -701,7 +701,7 @@ p5.Vector = class {
  *   let p1 = createVector(75, 75);
  *   let p2 = createVector(50, 50);
  *
- *   // Subtract with modifying the original vectors.
+ *   // Subtract without modifying the original vectors.
  *   let p3 = p5.Vector.sub(p1, p2);
  *
  *   // Draw the points.
@@ -791,7 +791,7 @@ p5.Vector = class {
  *
  * If only one value is provided, as in `v.mult(2)`, then all the components
  * will be multiplied by 2. If a value isn't provided for a component, it
- * won't change. For example, `v.mult(4, 5)` multiplies `v.x` by, `v.y` by 5,
+ * won't change. For example, `v.mult(4, 5)` multiplies `v.x` by 4, `v.y` by 5,
  * and `v.z` by 1. Calling `mult()` with no arguments, as in `v.mult()`, has
  * no effect.
  *
@@ -1694,8 +1694,8 @@ p5.Vector = class {
  *   // Style the text.
  *   textAlign(CENTER);
  *
- *   // Display the magnitude.
- *   let m = floor(v3.mag());
+ *   // Display the magnitude. The same as floor(v3.mag());
+ *   let m = floor(p5.Vector.dist(v1, v2));
  *   text(m, 50, 75);
  * }
  *

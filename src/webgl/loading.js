@@ -474,6 +474,7 @@ p5.prototype.loadModel = function(path,options) {
           if (flipV) {
             model.flipV();
           }
+          model._makeTriangleEdges();
 
           self._decrementPreload();
           if (typeof successCallback === 'function') {
@@ -1117,11 +1118,6 @@ p5.prototype.model = function(model) {
   p5._validateParameters('model', arguments);
   if (model.vertices.length > 0) {
     if (!this._renderer.geometryInHash(model.gid)) {
-
-      if (model.edges.length === 0) {
-        model._makeTriangleEdges();
-      }
-
       model._edgesToVertices();
       this._renderer.createBuffers(model.gid, model);
     }
@@ -1180,15 +1176,14 @@ p5.prototype.model = function(model) {
  * f     6 5 4
  * f     6 4 3
  * f     6 3 2
- * f     6 2 1
- * f     6 1 5
+ * f     6 2 5
  * `;
  * //draw a spinning octahedron
  * let octahedron;
  *
  * function setup() {
  *   createCanvas(100, 100, WEBGL);
- *   octahedron = createModel(octahedron_model);
+ *   octahedron = createModel(octahedron_model, '.obj');
  *   describe('Vertically rotating 3D octahedron.');
  * }
  *
@@ -1292,6 +1287,8 @@ p5.prototype.createModel = function(modelString, fileType=' ', options) {
   if (flipV) {
     model.flipV();
   }
+
+  model._makeTriangleEdges();
 
   if (typeof successCallback === 'function') {
     successCallback(model);
